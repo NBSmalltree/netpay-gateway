@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Http 连接管理-单笔请求
@@ -24,25 +25,25 @@ public class HttpClientSingle {
     /**
      * URL
      */
-    @Value("${client.http.url}")
+    @Value("${gateway.forward.http.url}")
     private String url;
 
     /**
      * 连接超时时间 秒
      */
-    @Value("${client.http.connectTimeout}")
+    @Value("${gateway.forward.http.connectTimeout}")
     private Integer connectTimeout;
 
     /**
      * 读取超时时间 秒
      */
-    @Value("${client.http.readTimeout}")
+    @Value("${gateway.forward.http.readTimeout}")
     private Integer readTimeout;
 
     /**
      * 是否需重发，默认 否
      */
-    @Value("${client.http.canResend}")
+    @Value("${gateway.forward.http.canResend}")
     private boolean canResend;
 
     /**
@@ -64,7 +65,7 @@ public class HttpClientSingle {
             con.setReadTimeout(readTimeout * 1000);
 
             try (OutputStream os = con.getOutputStream()) {
-                byte[] input = message.getBytes("utf-8");
+                byte[] input = message.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 

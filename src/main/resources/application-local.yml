@@ -10,27 +10,27 @@ gateway:
   listen:
     socket:
       port: 11111
+      netty:
+        port: 8080
     http:
       url: /netpay-gateway/recv-from-fe
       url1: /netpay-gateway/recv-from-fe1
-
-# 外部机构配置
-client:
-  http:
-    # URL
-    url: http://localhost:9001/mock/singleResponse # http://localhost:9001/mock/singleResponse
-    # 连接超时时间 秒
-    connectTimeout: 2
-    # 读取超时时间 秒
-    readTimeout: 8
-    # 是否需重发，默认 否
-    canResend: false
-    # 最大连接数
-    maxConnections: 100
-    # 最大连接数_单节点
-    maxConnectionsPerHost: 100
-    # 空闲进程销毁时间
-    keepAliveTime: 60
+  forward:
+    http:
+      # URL
+      url: http://localhost:9001/mock/singleResponse
+      # 连接超时时间 秒
+      connectTimeout: 2
+      # 读取超时时间 秒
+      readTimeout: 8
+      # 是否需重发，默认 否
+      canResend: false
+      # 最大连接数
+      maxConnections: 100
+      # 最大连接数_单节点
+      maxConnectionsPerHost: 100
+      # 空闲进程销毁时间
+      keepAliveTime: 60
 
 # 线程池配置
 threadPool:
@@ -56,10 +56,3 @@ threadPool:
     keepAliveTime: 180
     # 进程名前缀
     preFixName: NETPAY-RECV-
-
-# Netty
-netty:
-  socket:
-    send:
-      # 往账监听socket端口
-      port: 8080

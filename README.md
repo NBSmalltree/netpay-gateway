@@ -62,6 +62,19 @@ Spring启动时用一个新线程一直监听对应Socket端口的的请求，�
 
 ### 2.2 netty方案
 
+**总体流程**
+
+Spring主线程池接收到Socket请求，提交到Netty客户端，转发后端Http服务，同步接收响应信息。
+
+**配置如下**
+
+Netty客户端：
+- 工作进程：CPU核数 * 2
+
+监听端口：8080
+
+转发的url：http://localhost:9001/mock/singleResponse
+
 ### 2.3 测试方案
 
 1. 启动http监听，通过终端启动http监听

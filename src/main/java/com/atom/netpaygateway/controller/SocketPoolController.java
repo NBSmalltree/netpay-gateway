@@ -24,7 +24,7 @@ import java.net.Socket;
  */
 @Slf4j
 @Service
-public class SocketController {
+public class SocketPoolController {
 
     /**
      * socket 监听端口
