@@ -1,0 +1,67 @@
+# SpringBoot 配置
+server:
+  # 端口
+  port: 9000
+  # 优雅停机
+  shutdown: graceful
+
+# 网关配置
+gateway:
+  # 往账监听
+  appListen:
+    socketPort: 11111
+  # 来账监听
+  feListen:
+    url: /netpay-gateway/recv-from-fe
+
+# 外部机构配置
+fe:
+  http:
+    # URL
+    url: http://localhost:9001/mock/singleResponse
+    # 连接超时时间 秒
+    connectTimeout: 2
+    # 读取超时时间 秒
+    readTimeout: 8
+    # 是否需重发，默认 否
+    canResend: false
+    # 最大连接数
+    maxConnections: 100
+    # 最大连接数_单节点
+    maxConnectionsPerHost: 100
+    # 空闲进程销毁时间
+    keepAliveTime: 60
+
+# 线程池配置
+threadPool:
+  # 往账
+  send:
+    # 核心线程
+    coreSize: 10
+    # 最大线程
+    maxSize: 100
+    # 线程池队列深度
+    queueSize: 200
+    # 空闲进程销毁时间
+    keepAliveTime: 180
+    # 进程名前缀
+    preFixName: NETPAY-SEND-
+  # 来账
+  recv:
+    # 核心线程
+    coreSize: 10
+    # 最大线程
+    maxSize: 100
+    # 线程池队列深度
+    queueSize: 200
+    # 空闲进程销毁时间
+    keepAliveTime: 180
+    # 进程名前缀
+    preFixName: NETPAY-RECV-
+
+# Netty
+netty:
+  socket:
+    send:
+      # 往账监听socket端口
+      port: 8080
