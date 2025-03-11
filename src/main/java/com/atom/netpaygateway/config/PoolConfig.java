@@ -49,4 +49,40 @@ public class PoolConfig {
      */
     @Value("${threadPool.http.AwaitTerminationSeconds:30}")
     private Integer httpPoolAwaitTerminationSeconds;
+
+    /**
+     * 核心线程数-Socket
+     */
+    @Value("${threadPool.socket.coreSize:10}")
+    private Integer socketPoolCoreSize;
+
+    /**
+     * 最大线程数-Socket
+     */
+    @Value("${threadPool.socket.maxSize:100}")
+    private Integer socketPoolMaxSize;
+
+    /**
+     * 线程池队列深度-Socket
+     */
+    @Value("${threadPool.socket.QueneSize:10}")
+    private Integer socketPoolQueneSize;
+
+    /**
+     * 空闲进程销毁时间-Socket
+     */
+    @Value("${threadPool.socket.keepAliveTime:180}")
+    private Integer socketPoolKeepAliveTime;
+
+    /**
+     * 进程名前缀-Socket
+     */
+    @Value("${threadPool.socket.preFixName:NETPAY-socket-}")
+    private String socketPoolPreFixName;
+
+    /**
+     * 优雅关闭最长等待时间-Socket
+     */
+    @Value("${threadPool.socket.AwaitTerminationSeconds:30}")
+    private Integer socketPoolAwaitTerminationSeconds;
 }

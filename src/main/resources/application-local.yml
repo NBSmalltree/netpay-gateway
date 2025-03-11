@@ -7,18 +7,18 @@ server:
 
 # 网关配置
 gateway:
-  # 往账监听
-  appListen:
-    socketPort: 11111
-  # 来账监听
-  feListen:
-    url: /netpay-gateway/recv-from-fe
+  listen:
+    socket:
+      port: 11111
+    http:
+      url: /netpay-gateway/recv-from-fe
+      url1: /netpay-gateway/recv-from-fe1
 
 # 外部机构配置
-fe:
+client:
   http:
     # URL
-    url: http://localhost:9001/mock/singleResponse
+    url: http://localhost:9001/mock/singleResponse # http://localhost:9001/mock/singleResponse
     # 连接超时时间 秒
     connectTimeout: 2
     # 读取超时时间 秒
@@ -34,8 +34,7 @@ fe:
 
 # 线程池配置
 threadPool:
-  # 往账
-  send:
+  http:
     # 核心线程
     coreSize: 10
     # 最大线程
@@ -46,8 +45,7 @@ threadPool:
     keepAliveTime: 180
     # 进程名前缀
     preFixName: NETPAY-SEND-
-  # 来账
-  recv:
+  socket:
     # 核心线程
     coreSize: 10
     # 最大线程

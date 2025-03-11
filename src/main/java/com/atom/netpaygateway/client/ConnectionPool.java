@@ -21,9 +21,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ConnectionPool {
 
     /**
-     * 来账线程池
+     * Http 线程池
      *
-     * @return 来账线程池
+     * @return Http线程池
      *
      * @author Tom
      * @date 10/3/2025
@@ -39,10 +39,36 @@ public class ConnectionPool {
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.setAwaitTerminationSeconds(config.getHttpPoolAwaitTerminationSeconds());
-        log.info("初始化来账线程池：核心线程：{}，最大线程：{}，空闲进程销毁时间：{}，队列深度：{}，进程名：{}，优雅关闭最长等待时间：{}",
+        log.info("初始化Http线程池：核心线程：{}，最大线程：{}，空闲进程销毁时间：{}，队列深度：{}，进程名：{}，优雅关闭等待时间：{}",
                 config.getHttpPoolCoreSize(), config.getHttpPoolMaxSize(), config.getHttpPoolKeepAliveTime(),
                 config.getHttpPoolQueneSize(), config.getHttpPoolPreFixName(),
                 config.getHttpPoolAwaitTerminationSeconds());
+        return executor;
+    }
+
+    /**
+     * Socket 线程池
+     *
+     * @return Socket线程池
+     *
+     * @author Tom
+     * @date 11/3/2025
+     */
+    @Bean("socketThreadPoolExecutor")
+    public ThreadPoolTaskExecutor socketThreadPoolExecutor(PoolConfig config) {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(config.getSocketPoolCoreSize());
+        executor.setMaxPoolSize(config.getSocketPoolMaxSize());
+        executor.setKeepAliveSeconds(config.getSocketPoolKeepAliveTime());
+        executor.setQueueCapacity(config.getSocketPoolQueneSize());
+        executor.setThreadNamePrefix(config.getSocketPoolPreFixName());
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        executor.setAwaitTerminationSeconds(config.getSocketPoolAwaitTerminationSeconds());
+        log.info("初始化Socket线程池：核心线程：{}，最大线程：{}，空闲进程销毁时间：{}，队列深度：{}，进程名：{}，优雅关闭等待时间：{}",
+                config.getSocketPoolCoreSize(), config.getSocketPoolMaxSize(), config.getSocketPoolKeepAliveTime(),
+                config.getSocketPoolQueneSize(), config.getSocketPoolPreFixName(),
+                config.getSocketPoolAwaitTerminationSeconds());
         return executor;
     }
 

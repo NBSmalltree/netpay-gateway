@@ -25,9 +25,6 @@ public class SocketClientSingle {
      *
      * @param message 发送报文体
      * @return 响应信息
-     *
-     * @author Tom
-     * @date 10/3/2025
      */
     public String sendMessage(String message) {
         try (Socket socket = new Socket("127.0.0.1", 12345);

@@ -55,15 +55,15 @@ public class HttpController {
      * @param requestMessage 请求的Body
      * @return 同步响应
      */
-    @PostMapping(value = "${gateway.feListen.url:/netpay-gateway/recv-from-fe}", produces = "text/plain")
+    @PostMapping(value = "${gateway.listen.http.url:/netpay-gateway/recv-from-fe}", produces = "text/plain")
     public DeferredResult<String> recvMsg(@RequestBody String requestMessage) {
         DeferredResult<String> deferredResult = new DeferredResult<>(5000L);
 
         httpPoolExecutor.execute(() -> {
-            log.info("HTTP 请求信息是：{}", requestMessage);
+            log.info("Http -> Socket 请求信息是：{}", requestMessage);
             try {
                 String response = service.sendMessageWithPool(requestMessage);
-                log.info("Socket 响应信息是：{}", response);
+                log.info("Http -> Socket 响应信息是：{}", response);
                 deferredResult.setResult(response);
             } catch (Exception e) {
                 deferredResult.setErrorResult("Error:" + e.getMessage());
@@ -79,11 +79,11 @@ public class HttpController {
      * @param requestMessage 请求的Body
      * @return 返回值
      */
-    @PostMapping(value = "${gateway.feListen.url1:/netpay-gateway/recv-from-fe1}", produces = "text/plain")
+    @PostMapping(value = "${gateway.listen.http.url1:/netpay-gateway/recv-from-fe1}", produces = "text/plain")
     public Mono<String> recvMsg1(@RequestBody String requestMessage) {
-        log.info("Http 请求信息是：{}", requestMessage);
+        log.info("Http -> Socket 请求信息是：{}", requestMessage);
         return service.sendMessageWithNetty(requestMessage)
-                .doOnNext(response -> log.info("Http 响应信息是：{}", response))
+                .doOnNext(response -> log.info("Http -> Socket 响应信息是：{}", response))
                 .switchIfEmpty(Mono.just("No response from socket")); // 防止空响应
     }
 
